@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="resources\NPC">
+      <UniqueIdentifier>{4b4bd53e-9f7d-48e6-929e-57f4932f3a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI">
+      <UniqueIdentifier>{1e5cebb8-f20e-4854-80c9-31986f05ac95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI">
+      <UniqueIdentifier>{12163ded-8163-4547-9c9d-48883022f23e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI\PathFinding">
+      <UniqueIdentifier>{78985eb8-beef-425e-a89f-ce1d276f130b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI\Navigation Mesh">
+      <UniqueIdentifier>{fec119f7-e61e-4a78-bc50-907d3ffce7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI\PathFinding">
+      <UniqueIdentifier>{9bf5d15d-aa7b-4843-b5ad-88a9c79322a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI\Navigation Mesh">
+      <UniqueIdentifier>{21584a28-4b9b-4d0f-acab-8a2538d12f5c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="resources\NPC\NPC.glb">
+      <Filter>resources\NPC</Filter>
+    </None>
+    <None Include="resources\NPC\Obstacle.glb">
+      <Filter>resources\NPC</Filter>
+    </None>
+    <None Include="resources\NPC\Scene.glb">
+      <Filter>resources\NPC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\AI\Navigation Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Source Files\AI\Navigation Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding.cpp">
+      <Filter>Source Files\AI\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="AIEngine.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshUtils.cpp">
+      <Filter>Source Files\AI\Navigation Mesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\AI\Navigation Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="PCH.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Header Files\AI\Navigation Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding.h">
+      <Filter>Header Files\AI\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="AIEngine.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshUtils.h">
+      <Filter>Header Files\AI\Navigation Mesh</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\NPC\NpcTexture.png">
+      <Filter>resources\NPC</Filter>
+    </Image>
+    <Image Include="resources\NPC\rock.png">
+      <Filter>resources\NPC</Filter>
+    </Image>
+    <Image Include="resources\NPC\ground.png">
+      <Filter>resources\NPC</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
