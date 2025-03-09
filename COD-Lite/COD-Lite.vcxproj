@@ -129,7 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="resources\NPC\NPC.glb" />
     <None Include="resources\NPC\Obstacle.glb" />
     <None Include="resources\NPC\Scene.glb" />
   </ItemGroup>

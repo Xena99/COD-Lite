@@ -37,9 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="resources\NPC\NPC.glb">
-      <Filter>resources\NPC</Filter>
-    </None>
     <None Include="resources\NPC\Obstacle.glb">
       <Filter>resources\NPC</Filter>
     </None>
