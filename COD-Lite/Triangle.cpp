@@ -23,8 +23,8 @@ bool PointInTriangle(Vector2 P, Triangle* triangle)
     float lambda3 = (d00 * d21 - d02 * d01) / denom;
     float lambda1 = 1 - (lambda2 + lambda3);
 
-    return (lambda1 >= 0 && lambda1 <= 1) &&
-        (lambda2 >= 0 && lambda2 <= 1) &&
-        (lambda3 >= 0 && lambda3 <= 1);
+    return (lambda1 >= -EPSILON && lambda1 <= 1.0f + EPSILON) &&
+           (lambda2 >= -EPSILON && lambda2 <= 1.0f + EPSILON) &&
+           (lambda3 >= -EPSILON && lambda3 <= 1.0f + EPSILON);
 }
 

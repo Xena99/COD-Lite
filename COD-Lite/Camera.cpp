@@ -2,7 +2,7 @@
 
 GameCamera::GameCamera()
 {
-    camera.position = { 1.0f, 4.0f, 15.0f };
+    camera.position = { 1.0f, 10.0f, 15.0f };
     camera.target = { 0.0f, 2.0f, 0.0f };
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 45.0f;

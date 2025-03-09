@@ -53,59 +53,70 @@ vector<Triangle*> NavMeshUtils::DetectWalkableTriangles(Vector2 aiPosition, floa
 
     TraceLog(LOG_INFO, "INFO: Detected %d walkable triangles", walkableTriangles.size());
 
-    return walkableTriangles;
+    vector<Triangle*> filteredTriangles;
+    for (auto* tri : walkableTriangles) {
+        BoundingBox triBox = {
+            { min(tri->vertex[0].x, min(tri->vertex[1].x, tri->vertex[2].x)),
+              0,
+              min(tri->vertex[0].y, min(tri->vertex[1].y, tri->vertex[2].y)) },
+            { max(tri->vertex[0].x, max(tri->vertex[1].x, tri->vertex[2].x)),
+              1.0f,
+              max(tri->vertex[0].y, max(tri->vertex[1].y, tri->vertex[2].y)) }
+        };
+
+        bool isBlocked = false;
+        for (int i = 0; i < obstacleModel->model.meshCount; i++) {
+            BoundingBox obstacleBox = GetMeshBoundingBox(obstacleModel->model.meshes[i]);
+            if (CheckCollisionBoxes(triBox, obstacleBox)) {
+                isBlocked = true;
+                break;
+            }
+        }
+
+        if (!isBlocked) {
+            filteredTriangles.push_back(tri);
+        }
+        else {
+            delete tri;
+        }
+    }
+
+    TraceLog(LOG_INFO, "INFO: Final walkable triangles after filtering: %d", filteredTriangles.size());
+
+    return filteredTriangles;
 }
 
 void NavMeshUtils::DrawWalkableTriangles(vector<Triangle*> walkableTriangles, Color color, float heightOffset) {
     for (auto& tri : walkableTriangles) {
-        //Convert 2D (XZ) triangle to 3D (XYZ)
+        // Convert 2D (XZ) triangle to 3D (XYZ)
         Vector3 v0 = { tri->vertex[0].x, heightOffset, tri->vertex[0].y };
         Vector3 v1 = { tri->vertex[1].x, heightOffset, tri->vertex[1].y };
         Vector3 v2 = { tri->vertex[2].x, heightOffset, tri->vertex[2].y };
 
-        //Draw filled triangle in 3D
+        // Draw filled triangle in 3D
         DrawTriangle3D(v0, v1, v2, color);
 
-        //Draw triangle outline for visibility
+        // Draw triangle outline
         DrawLine3D(v0, v1, BLACK);
         DrawLine3D(v1, v2, BLACK);
         DrawLine3D(v2, v0, BLACK);
-    }
-}
 
-void NavMeshUtils::DrawNavMesh(QuadTree* quadTree, float heightOffset) {
-    if (!quadTree) return;
-
-    function<void(QuadTreeNode*)> DrawNode = [&](QuadTreeNode* node) {
-        if (!node) return;
-
-        // Draw all triangles inside this node
-        for (Triangle* tri : node->walkableTriangles) {
-            Vector3 v0 = { tri->vertex[0].x, heightOffset, tri->vertex[0].y };
-            Vector3 v1 = { tri->vertex[1].x, heightOffset, tri->vertex[1].y };
-            Vector3 v2 = { tri->vertex[2].x, heightOffset, tri->vertex[2].y };
-
-            // Color based on validity
-            Color triangleColor = tri->isWalkable ? DARKGREEN : RED;
-
-            // Draw filled triangle
-            DrawTriangle3D(v0, v1, v2, triangleColor);
-
-            // Draw outline for visibility
-            DrawLine3D(v0, v1, BLACK);
-            DrawLine3D(v1, v2, BLACK);
-            DrawLine3D(v2, v0, BLACK);
-        }
-
-        // Recursively draw child nodes
-        for (int i = 0; i < 4; i++) {
-            if (node->children[i]) {
-                DrawNode(node->children[i]);
-            }
-        }
+        /** Compute bounding box for triangle
+        BoundingBox triBox = {
+            { min(v0.x, min(v1.x, v2.x)), heightOffset, min(v0.z, min(v1.z, v2.z)) },
+            { max(v0.x, max(v1.x, v2.x)), heightOffset + 1.0f, max(v0.z, max(v1.z, v2.z)) }
         };
 
-    DrawNode(quadTree->GetRoot());
-}
+        // Draw bounding box around the triangle
+        DrawBoundingBox(triBox, RED);
+        **/
+        
+    }
 
+    /** Draw bounding boxes for obstacles
+    for (int i = 0; i < obstacleModel->model.meshCount; i++) {
+        BoundingBox obstacleBox = GetMeshBoundingBox(obstacleModel->model.meshes[i]);
+        DrawBoundingBox(obstacleBox, BLUE);
+    }**/
+}
 

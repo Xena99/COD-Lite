@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Triangle.h"
+#include "Utils.h"
 #include "PCH.h"
 
 struct Bounds
@@ -76,10 +77,6 @@ class QuadTree
 		void SubdivideQuadrants(QuadTreeNode* node);
 
 		Triangle* FindTriangleAtPosition(Vector2 position);
-
-		//bool AreNodesAdjacent(QuadTreeNode* node1, QuadTreeNode* node2);
-
-		bool TrianglesAreAdjacent(const Triangle& t1, const Triangle& t2);
 
 		bool IsAdjacentInDirection(QuadTreeNode* node1, QuadTreeNode* node2, Direction dir);
 

@@ -16,5 +16,5 @@ namespace NavMeshUtils {
     void InitializeNavMesh(GameModel& ground, GameModel& obstacles);
     std::vector<Triangle*> DetectWalkableTriangles(Vector2 aiPosition, float updateRadius);
     void DrawWalkableTriangles(std::vector<Triangle*> walkableTriangles, Color color, float heightOffset = 0.01f);
-    void DrawNavMesh(QuadTree* quadTree, float heightOffset);
+   // bool CheckBoxCollisions(BoundingBox box1, BoundingBox box2);
 }

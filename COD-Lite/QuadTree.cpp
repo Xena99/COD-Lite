@@ -253,21 +253,24 @@ Triangle* QuadTree::FindTriangleAtPosition(Vector2 position) {
 Triangle* QuadTree::SearchNode(QuadTreeNode* node, Vector2 position) {
     if (!node) return nullptr;
 
-    if (position.x < node->boundingBox.min.x || position.x > node->boundingBox.max.x ||
-        position.y < node->boundingBox.min.y || position.y > node->boundingBox.max.y) {
-        return nullptr;
-    }
-
+    // If it's a leaf node, check its triangles
     if (node->isLeafNode()) {
+        Triangle* bestTriangle = nullptr;
+        float bestDistance = FLT_MAX; // Store the closest triangle
+
         for (Triangle* tri : node->walkableTriangles) {
-            
             if (PointInTriangle(position, tri)) {
-                return tri;
+                float dist = Vector2Distance(position, tri->center);
+                if (dist < bestDistance) { // Select the closest triangle
+                    bestDistance = dist;
+                    bestTriangle = tri;
+                }
             }
         }
-        return nullptr;
+        return bestTriangle; // Return the best (closest) triangle found
     }
 
+    // Recursively search child nodes
     for (int i = 0; i < 4; i++) {
         if (node->children[i]) {
             Triangle* foundTriangle = SearchNode(node->children[i], position);
@@ -275,7 +278,7 @@ Triangle* QuadTree::SearchNode(QuadTreeNode* node, Vector2 position) {
         }
     }
 
-    return nullptr;
+    return nullptr; // No valid triangle found
 }
 
 void QuadTree::ComputeNeighbours() {
@@ -299,7 +302,7 @@ void QuadTree::ComputeNeighbours() {
 
             // Check neighbors within the same leaf node
             for (Triangle* other : node->walkableTriangles) {
-                if (triangle != other && TrianglesAreAdjacent(*triangle, *other)) {
+                if (triangle != other && Utils::TrianglesAreAdjacent(*triangle, *other)) {
                     //TraceLog(LOG_INFO, "  Found adjacent triangle in same node: (%.2f, %.2f)", other->center.x, other->center.y);
                     uniqueNeighbors.insert(other);
                 }
@@ -314,7 +317,8 @@ void QuadTree::ComputeNeighbours() {
                    // TraceLog(LOG_INFO, "  Checking adjacent node in direction %d with %d triangles", dir, (int)adjacentNode->walkableTriangles.size());
 
                     for (Triangle* other : adjacentNode->walkableTriangles) {
-                        if (TrianglesAreAdjacent(*triangle, *other)) {
+                        if (Utils::TrianglesAreAdjacent(*triangle, *other)) 
+                        {
                             uniqueNeighbors.insert(other);
                             //TraceLog(LOG_INFO, "    Found adjacent triangle in neighbor node: (%.2f, %.2f)", other->center.x, other->center.y);
                         }
@@ -381,21 +385,6 @@ bool QuadTree::IsAdjacentInDirection(QuadTreeNode* node1, QuadTreeNode* node2, D
     default:
         return false;
     }
-}
-
-// Helper function to check if two triangles are adjacent.
-bool QuadTree::TrianglesAreAdjacent(const Triangle& t1, const Triangle& t2) {
-    int sharedVertices = 0;
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (fabs(t1.vertex[i].x - t2.vertex[j].x) < EPSILON &&
-                fabs(t1.vertex[i].y - t2.vertex[j].y) < EPSILON) {
-                sharedVertices++;
-            }
-        }
-    }
-    return sharedVertices == 2;
 }
 
 QuadTreeNode* QuadTree::FindLeafNode(QuadTreeNode* node, Vector2 point) {
