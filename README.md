@@ -1,6 +1,6 @@
 # COD-Lite
 
-**COD-Lite** is a lightweight C++ project utilizing the [raylib](https://www.raylib.com/) library, designed to simulate fundamental aspects of game AI, including pathfinding, navigation meshes, and spatial partitioning.
+**COD-Lite** is a lightweight C++ project utilizing the [raylib](https://www.raylib.com/) library, designed to simulate fundamental aspects of game AI, including pathfinding, navigation meshes, and spatial partitioning.
 
 ## Table of Contents
 
