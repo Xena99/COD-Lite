@@ -1,62 +1,79 @@
 # COD-Lite
 
-**COD-Lite** is a lightweight C++ project utilizing the [raylib](https://www.raylib.com/) library, designed to simulate fundamental aspects of game AI, including pathfinding, navigation meshes, and spatial partitioning.
+COD-Lite is a lightweight C++ project built using the **raylib** library, designed to implement advanced **AI pathfinding, navigation meshes, and spatial partitioning** techniques. This project focuses on **optimized AI movement and decision-making** using **QuadTrees for spatial partitioning** and **A* pathfinding with funnel algorithms** for smooth navigation. 
 
 ## Table of Contents
-
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Output](#output)
 - [Project Structure](#project-structure)
 
 ## Features
 
-- **AI Engine**: Manages AI behavior and decision-making processes.
-- **Pathfinding**: Implements algorithms to determine optimal paths for AI agents.
-- **Navigation Mesh Utilities**: Handles the creation and management of navigation meshes for efficient movement.
-- **QuadTree Implementation**: Provides spatial partitioning to optimize collision detection and environment queries.
+### AI Engine
+- Manages **AI behavior, decision-making, and movement** through an **asynchronous processing system**.
+- Uses a **threaded AI loop** to handle **real-time path recalculations** based on dynamic targets.
 
-## Installation
+### Pathfinding
+- Implements **A* search** for **optimal path computation** across a **NavMesh-based environment**.
+- Utilizes **priority queues and heuristics** for efficient pathfinding.
+- Incorporates the **Funnel Algorithm** for **smooth movement** along paths.
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Xena99/COD-Lite.git
-   cd COD-Lite
-   ```
+### Navigation Mesh (NavMesh)
+- Detects **walkable surfaces** in the scene by **raycasting** over game models.
+- Stores navigable regions using **triangulated mesh representations**.
+- Supports **dynamic obstacle detection** by filtering **unreachable areas**.
 
-2. **Install Dependencies**:
-   - Ensure [raylib](https://www.raylib.com/) is installed on your system.
-   - If not, follow the [raylib installation guide](https://github.com/raysan5/raylib#installation) suitable for your platform.
+### QuadTree Spatial Partitioning
+- Implements a **QuadTree-based spatial hierarchy** for **optimized environment queries**.
+- Divides the world into **quadrants**, enabling **fast triangle lookup** for AI movement.
+- Supports **adaptive partitioning**, ensuring minimal computation overhead.
 
-3. **Build the Project**:
-   - Use your preferred C++ build system (e.g., `make`, `CMake`) to compile the project.
-   - Ensure that the compiler can locate the raylib headers and libraries.
+---
 
-## Usage
+## Output
+- The AI agent autonomously navigates the environment using pathfinding algorithms to move efficiently across the navigation mesh (displayed in green).
+- The navigation mesh is composed of triangular walkable areas, allowing the AI to traverse the environment while avoiding obstacles.
+- The blue line represents the path computed using the Funnel Algorithm, which ensures natural and smooth movement across the terrain.
+- The yellow triangles indicate the neighboring triangles of the triangle where the AI is currently positioned. These neighboring connections are crucial for    
+  pathfinding and traversal decisions.
+- The white sphere is the AI’s target position. The AI continuously updates its path to reach this target while navigating around obstacles.
+- The obstacles (gray rocky blocks) represent non-walkable areas where triangles are filtered out to prevent AI from attempting movement through solid objects.
 
-1. **Run the Executable**:
-   - After building, execute the generated binary.
-
-2. **Controls**:
-   - The AI agent will autonomously navigate the environment using the implemented pathfinding algorithms.
-   - Observe the console for debug logs detailing AI decisions and pathfinding steps.
+---
 
 ## Project Structure
 
-The project comprises several key components:
+The project comprises several core modules:
 
-- **AIEngine.cpp**: Manages the AI agent's behavior, including threading for asynchronous decision-making.
-  - Initializes the AI engine with a reference to the `QuadTree` and the agent's starting position.
-  - Handles the AI thread loop, processing movement towards targets and interacting with the environment.
+### **`AIEngine.cpp`** - AI Agent Management
+- Initializes the **AI Engine** with references to the **QuadTree and NavMesh**.
+- Implements **threaded execution** to continuously update **AI movement**.
+- Handles **target updates** dynamically when AI **senses obstacles or objectives**.
+- Executes **real-time path recalculations** to ensure smooth navigation.
 
-- **PathFinding.cpp**: Contains the pathfinding logic for the AI agent.
-  - Implements the A* algorithm to compute optimal paths.
-  - Utilizes a priority queue to explore nodes based on cost, ensuring efficient path computation.
+### **`PathFinding.cpp`** - Path Computation
+- Implements the **A* Algorithm** to find the most efficient route between **start and target points**.
+- Uses a **min-heap priority queue** to explore **low-cost nodes first**.
+- Extracts **portals** between triangles for **smooth transitions**.
+- Runs the **Funnel Algorithm** to optimize AI movement along a natural path.
 
-- **NavMeshUtils.cpp**: Provides utilities for navigation mesh management.
-  - Detects walkable triangles within a specified radius around the AI agent.
-  - Integrates with game models to assess ground and obstacle data for navigation purposes.
+### **`NavMeshUtils.cpp`** - Navigation Mesh Management
+- Uses **raycasting** to **detect walkable triangles** on the game terrain.
+- Filters **obstructed areas** using **collision checks** against **obstacles**.
+- **Visualizes** the navigation mesh using **triangle rendering**.
+- Stores **triangle adjacency data** to speed up **pathfinding calculations**.
 
-- **QuadTree.cpp**: Implements a quadtree for spatial partitioning.
-  - Divides the game world into manageable sections to optimize collision detection and environment queries.
-  - Supports insertion, deletion, and querying of objects within the spatial hierarchy.
+### **`QuadTree.cpp`** - Spatial Partitioning
+- Implements a **QuadTree structure** for **fast spatial queries**.
+- **Subdivides** large areas into **smaller nodes** containing walkable triangles.
+- Dynamically **redistributes** triangles to prevent **overlapping storage**.
+- Provides **efficient lookups** for **AI movement and collision detection**.
+
+---
+
+## Summary
+COD-Lite demonstrates an **optimized AI movement system** by leveraging **spatial partitioning with QuadTrees**, **A* pathfinding with funnel optimization**, and **real-time NavMesh updates**. The project is designed to be lightweight while showcasing **high-performance AI behaviors** in **dynamic environments**.
+
+---
+
+This README now **clearly defines the technical aspects** of the project, explaining the **role of each module** while emphasizing the **efficiency and optimization techniques** used. Let me know if you’d like any modifications! 🚀
