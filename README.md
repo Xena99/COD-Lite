@@ -31,6 +31,8 @@ COD-Lite is a lightweight C++ project built using the **raylib** library, design
 ---
 
 ## Output
+<img src="https://raw.githubusercontent.com/Xena99/COD-Lite/master/Output.png" width="600" height="400" />
+
 - The AI agent autonomously navigates the environment using pathfinding algorithms to move efficiently across the navigation mesh (displayed in green).
 - The navigation mesh is composed of triangular walkable areas, allowing the AI to traverse the environment while avoiding obstacles.
 - The blue line represents the path computed using the Funnel Algorithm, which ensures natural and smooth movement across the terrain.
