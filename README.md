@@ -75,7 +75,3 @@ The project comprises several core modules:
 
 ## Summary
 COD-Lite demonstrates an **optimized AI movement system** by leveraging **spatial partitioning with QuadTrees**, **A* pathfinding with funnel optimization**, and **real-time NavMesh updates**. The project is designed to be lightweight while showcasing **high-performance AI behaviors** in **dynamic environments**.
-
----
-
-This README now **clearly defines the technical aspects** of the project, explaining the **role of each module** while emphasizing the **efficiency and optimization techniques** used. Let me know if you’d like any modifications! 🚀
